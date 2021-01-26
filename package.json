@@ -2,6 +2,9 @@
   "name": "btcfees",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=15.6"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
