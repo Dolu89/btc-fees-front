@@ -25,7 +25,7 @@
       <h1 class="text-2xl">Bitcoin fastest fee estimate</h1>
       <div class="flex items-baseline text-red-500">
         <a
-          href="https://github.com/dolu89/btc-fees"
+          href="https://github.com/dolu89/btc-fees-front"
           target="_blank"
           class="hover:text-red-700"
           >Contribute</a
