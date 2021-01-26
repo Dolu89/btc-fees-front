@@ -12,6 +12,8 @@
     "@nuxtjs/pwa": "^3.3.4",
     "animated-number-vue": "^1.0.0",
     "chartist": "^0.11.4",
+    "chartist-logaxis": "^1.3.1",
+    "chartist-plugin-pointlabels": "^0.0.6",
     "core-js": "^3.8.2",
     "nuxt": "^2.14.12"
   },
