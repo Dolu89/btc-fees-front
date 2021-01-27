@@ -2,6 +2,7 @@
   <div class="flex flex-col w-full min-h-screen">
     <div
       class="bg-gray-900 text-gray-400 w-full justify-center flex flex-col flex-grow h-full items-center"
+      v-show="!isLoading"
     >
       <div class="text-6xl">
         <animated-number
@@ -17,6 +18,13 @@
       </div>
 
       <div>Last block mined {{ timeSinceLastBlockFormat }} ago</div>
+    </div>
+    
+    <div
+      class="bg-gray-900 text-gray-400 w-full justify-center flex flex-col flex-grow h-full items-center"
+      v-show="isLoading"
+    >
+      <span class="blink">Fetching data...</span>
     </div>
 
     <div
@@ -54,6 +62,7 @@ export default {
   },
   data() {
     return {
+      isLoading: true,
       fees: 0,
       timeSinceLastBlock: 0,
     };
@@ -112,6 +121,7 @@ export default {
             }),
           ],
         };
+        this.isLoading = false
         new Chartist.Line(".ct-chart", chartData, chartOptions);
       }
     };
@@ -124,8 +134,8 @@ export default {
   computed: {
     timeSinceLastBlockFormat() {
       let minutes = Math.trunc(this.timeSinceLastBlock / 60);
-      if (minutes === 0){
-        minutes = '< 1'
+      if (minutes === 0) {
+        minutes = "< 1";
       }
       const minutesString = minutes > 1 ? "minutes" : "minute";
       return `${minutes} ${minutesString}`;
@@ -162,5 +172,14 @@ export default {
 
 .ct-series-b .ct-area {
   fill: #feebc8;
+}
+
+.blink {
+  animation: blinker 1s linear infinite;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
 }
 </style>
