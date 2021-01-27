@@ -58,6 +58,7 @@ import Chartist from "chartist";
 import "chartist/dist/chartist.min.css";
 import "chartist-plugin-legend";
 import "chartist-logaxis";
+import "chartist-plugin-axistitle";
 import ctPointLabels from "chartist-plugin-pointlabels";
 
 export default {
@@ -75,6 +76,7 @@ export default {
     const chartOptions = {
       chartPadding: {
         right: 40,
+        left: 20,
       },
       low: 0,
       height: "225px",
@@ -106,6 +108,12 @@ export default {
         Chartist.plugins.legend({
           legendNames: ["Next block fees range", "Optimized fee"],
           position: document.getElementById("legends"),
+        }),
+        Chartist.plugins.ctAxisTitle({
+          axisY: {
+            axisTitle: "sat / vB",
+            axisClass: "ct-axis-title",
+          },
         }),
       ],
     };
@@ -164,6 +172,9 @@ export default {
 <style lang="scss">
 .ct-label {
   color: #e2e8f0;
+}
+.ct-axis-title {
+  fill: #e2e8f0;
 }
 
 .ct-label-point {

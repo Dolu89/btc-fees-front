@@ -2304,6 +2304,11 @@ chartist-logaxis@^1.3.1:
   resolved "https://registry.yarnpkg.com/chartist-logaxis/-/chartist-logaxis-1.3.1.tgz#36fc2cb430ccb992bcc4bc2da8283398630c316c"
   integrity sha512-EyjzLqz093plMgVASDE906YBnK34XuXOBUeTTgRn9pWrLIjC0rTgUi68fZ/Ej+9+B/D7XwKzTP4IgJi+wrnddw==
 
+chartist-plugin-axistitle@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/chartist-plugin-axistitle/-/chartist-plugin-axistitle-0.0.7.tgz#ba4d8334707439e5b5e63ac6f11fac0ea8bc29c4"
+  integrity sha512-qFG7R/qiZZyCn/gx9WJpMcnyhE0LIpGBxDnPpYtzY5cG53fHBkvJDsAEHEFFfO1l/RHI0G8oN9fpoUD/BMeiFA==
+
 chartist-plugin-legend@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/chartist-plugin-legend/-/chartist-plugin-legend-0.6.2.tgz#53bf2771ddc1dc288c8abc16c151788f0b750244"
