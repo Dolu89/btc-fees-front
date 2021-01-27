@@ -6633,6 +6633,11 @@ purgecss@^2.3.0:
     postcss "7.0.32"
     postcss-selector-parser "^6.0.2"
 
+pws@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/pws/-/pws-5.0.2.tgz#86b581ad5e811417d514f06868ae4d9c71bdaa48"
+  integrity sha512-V4ZwsJIAiG9YoNv1IO/JSoapG9NrwRhmKKdQ0C7q0tBIxBTptGeTBhdnE53o5qrcoEHDqw5Mc3T1XF0NlvHTlQ==
+
 q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"

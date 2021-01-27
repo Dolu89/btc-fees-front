@@ -19,7 +19,7 @@
 
       <div>Last block mined {{ timeSinceLastBlockFormat }} ago</div>
     </div>
-    
+
     <div
       class="bg-gray-900 text-gray-400 w-full justify-center flex flex-col flex-grow h-full items-center"
       v-show="isLoading"
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import PersistentWebSocket from "pws";
 import AnimatedNumber from "animated-number-vue";
 import Chartist from "chartist";
 import "chartist-logaxis";
@@ -68,7 +69,7 @@ export default {
     };
   },
   mounted() {
-    const ws = new WebSocket(process.env.wsApiUrl);
+    const ws = new PersistentWebSocket(process.env.wsApiUrl);
 
     ws.onmessage = (event) => {
       if (event.data.startsWith("{")) {
@@ -121,7 +122,7 @@ export default {
             }),
           ],
         };
-        this.isLoading = false
+        this.isLoading = false;
         new Chartist.Line(".ct-chart", chartData, chartOptions);
       }
     };
@@ -179,7 +180,9 @@ export default {
   transform: translateX(-50%) translateY(-50%);
 }
 
-@keyframes blinker {  
-  50% { opacity: 0; }
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 </style>
