@@ -17,6 +17,8 @@
         <div class="ct-chart ct-perfect-fourth h-56"></div>
       </div>
 
+      <div id="legends"></div>
+
       <div>Last block mined {{ timeSinceLastBlockFormat }} ago</div>
     </div>
 
@@ -53,9 +55,10 @@
 import PersistentWebSocket from "pws";
 import AnimatedNumber from "animated-number-vue";
 import Chartist from "chartist";
+import "chartist/dist/chartist.min.css";
+import "chartist-plugin-legend";
 import "chartist-logaxis";
 import ctPointLabels from "chartist-plugin-pointlabels";
-import "chartist/dist/chartist.min.css";
 
 export default {
   components: {
@@ -69,6 +72,45 @@ export default {
     };
   },
   mounted() {
+    const chartOptions = {
+      chartPadding: {
+        right: 40,
+      },
+      low: 0,
+      height: "225px",
+      fullWidth: true,
+      axisX: {
+        showLabel: false,
+        showGrid: false,
+      },
+      axisY: {
+        type: Chartist.AutoScaleAxis,
+        scale: "log10",
+      },
+      series: {
+        feeRange: {
+          showArea: false,
+          showPoint: true,
+        },
+        fastestFee: {
+          showLine: true,
+          showArea: true,
+          showPoint: false,
+        },
+      },
+      plugins: [
+        ctPointLabels({
+          labelClass: "ct-label-point",
+          textAnchor: "middle",
+        }),
+        Chartist.plugins.legend({
+          legendNames: ["Next block fees range", "Optimized fee"],
+          position: document.getElementById("legends"),
+        }),
+      ],
+    };
+    let chartist = null;
+
     const ws = new PersistentWebSocket(process.env.wsApiUrl);
 
     ws.onmessage = (event) => {
@@ -92,38 +134,12 @@ export default {
           ],
         };
 
-        const chartOptions = {
-          low: 0,
-          height: "225px",
-          fullWidth: true,
-          axisX: {
-            showLabel: false,
-            showGrid: false,
-          },
-          axisY: {
-            type: Chartist.AutoScaleAxis,
-            scale: "log10",
-          },
-          series: {
-            feeRange: {
-              showArea: false,
-              showPoint: true,
-            },
-            fastestFee: {
-              showLine: true,
-              showArea: true,
-              showPoint: false,
-            },
-          },
-          plugins: [
-            ctPointLabels({
-              labelClass: "ct-label-point",
-              textAnchor: "middle",
-            }),
-          ],
-        };
         this.isLoading = false;
-        new Chartist.Line(".ct-chart", chartData, chartOptions);
+        if (chartist) {
+          chartist.update(chartData);
+        } else {
+          chartist = new Chartist.Line(".ct-chart", chartData, chartOptions);
+        }
       }
     };
   },
@@ -145,7 +161,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .ct-label {
   color: #e2e8f0;
 }
@@ -185,4 +201,79 @@ export default {
     opacity: 0;
   }
 }
+
+#legends {
+  margin-top: -30px;
+  margin-bottom: 20px;
+}
+
+.ct-legend {
+  list-style: none;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+
+  li {
+    padding-left: 23px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:before {
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      left: 0;
+      content: "";
+      border: 3px solid transparent;
+      border-radius: 2px;
+    }
+    .inactive:before {
+      background: transparent;
+    }
+
+    &:nth-child(1)::before {
+      background-color: #e53e3e;
+    }
+
+    &:nth-child(2)::before {
+      background-color: #fbd38d;
+    }
+  }
+
+  // .ct-legend-inside {
+  //   position: absolute;
+  //   top: 0;
+  //   right: 0;
+  // }
+}
+// g:not(.ct-grids):not(.ct-labels) g {
+//   &:nth-child(1) {
+//     .ct-point,
+//     .ct-line {
+//       stroke: #d70206;
+//     }
+//   }
+//   &:nth-child(2) {
+//     .ct-point,
+//     .ct-line {
+//       stroke: #f05b4f;
+//     }
+//   }
+//   &:nth-child(3) {
+//     .ct-point,
+//     .ct-line {
+//       stroke: #f4c63d;
+//     }
+//   }
+//   &:nth-child(1n + 4) {
+//     .ct-point,
+//     .ct-line {
+//       stroke: #f06292;
+//     }
+//   }
+// }
 </style>
