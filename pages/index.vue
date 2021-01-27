@@ -108,6 +108,7 @@ export default {
         Chartist.plugins.legend({
           legendNames: ["Next block fees range", "Optimized fee"],
           position: document.getElementById("legends"),
+          clickable: false
         }),
         Chartist.plugins.ctAxisTitle({
           axisY: {
@@ -225,13 +226,12 @@ export default {
   align-items: center;
 
   li {
-    padding-left: 23px;
-    margin-right: 10px;
+    padding-left: 15px;
+    margin-right: 15px;
     margin-bottom: 3px;
     position: relative;
     display: flex;
     align-items: center;
-    cursor: pointer;
 
     &:before {
       width: 12px;
